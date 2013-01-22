@@ -1,0 +1,15 @@
+<package>
+  <description brief="roswww_pack">
+
+     roswww_pack
+
+  </description>
+  <author>Jihoon</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/roswww_pack</url>
+  <depend package="rospy"/>
+
+</package>
+
+
