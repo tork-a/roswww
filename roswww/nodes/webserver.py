@@ -38,6 +38,8 @@ def create_webserver(packages):
     handlers = [(r"/", MainHandler, {"packages": packages})]
     
     for package in packages:
+        handler_root = ("/"+package['name']+"/?()", tornado.web.StaticFileHandler, {"path": package['path']+"/www/index.html" })
+        handlers.append(handler_root)
         handler = ("/"+package['name']+"/(.*)", tornado.web.StaticFileHandler, {"path": package['path']+"/www", "default_filename": "index.html" })
         handlers.append(handler)       
         
