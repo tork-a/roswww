@@ -2,15 +2,19 @@
 <package>
   <name>roswww_pkg</name>
   <version>0.1.0</version>
-  <description>roswww_pkg metapackage.</description>
+  <description>roswww_pkg metapackage provides instant web server for ROS application.
 
-  <maintainer email="jihoonl@yujinrobot.com">Jihoon Lee</maintainer>
+   These packages are forked from <a href = "https://github.com/jihoonl/roswww">this repository</a> (consented <a href = "https://github.com/jihoonl/roswww/issues/3#issuecomment-28464213">here</a>).
+  </description>
+
+  <maintainer email="130s@lateeye.net">Isaac Isao Saito</maintainer>
   <author>Jonathan Mace</author>
+  <author email="jihoonl@yujinrobot.com">Jihoon Lee</author>
   <author email="iisaito@opensource-robotics.tokyo.jp">Isaac Isao Saito</author>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/roswww_pkg</url>
-  <url type="bugtracker">https://github.com/jihoonl/roswww/issues</url>
-  <url type="repository">https://github.com/jihoonl/roswww</url>
+  <url type="bugtracker">https://github.com/tork-a/roswww_pkg/issues</url>
+  <url type="repository">https://github.com/tork-a/roswww_pkg</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roswww</build_depend>

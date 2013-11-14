@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>roswww</name>
+  <version>0.1.0</version>
+  <description>roswww package</description>
+
+  <maintainer email="jihoonl@yujinrobot.com">Jihoon Lee</maintainer>
+  <author>Jonathan Mace</author>
+  <author email="iisaito@opensource-robotics.tokyo.jp">Isaac Isao Saito</author>
+  <license>BSD</license>
+  <url type="website">http://ros.org/wiki/roswww</url>
+  <url type="bugtracker">https://github.com/tork-a/roswww_pkg/issues</url>
+  <url type="repository">https://github.com/tork-a/roswww_pkg</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rospy</run_depend>
+
+  <export/>
+</package>
