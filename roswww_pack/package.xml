@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roswww_pack</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <description>roswww_pack package</description>
 
   <maintainer email="130s@lateeye.net">Isaac Isao Saito</maintainer>

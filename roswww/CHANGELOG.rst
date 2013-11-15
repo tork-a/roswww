@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.1 (2013-11-15)
+------------------
 * roswww) correction in response to the error on buildfarm
 * roswww) change maintainer. Remove unncessary file
 * Contributors: Isao Isaac Saito
