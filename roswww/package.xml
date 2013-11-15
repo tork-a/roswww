@@ -4,9 +4,9 @@
   <version>0.1.0</version>
   <description>roswww package</description>
 
-  <maintainer email="jihoonl@yujinrobot.com">Jihoon Lee</maintainer>
+  <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Isao Saito</maintainer>
   <author>Jonathan Mace</author>
-  <author email="iisaito@opensource-robotics.tokyo.jp">Isaac Isao Saito</author>
+  <author email="jihoonl@yujinrobot.com">Jihoon Lee</author>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/roswww</url>
   <url type="bugtracker">https://github.com/tork-a/roswww_pkg/issues</url>
