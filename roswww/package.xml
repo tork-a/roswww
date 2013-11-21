@@ -13,6 +13,7 @@
   <url type="repository">https://github.com/tork-a/roswww_pkg</url>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rosbridge</run_depend>
   <run_depend>rospy</run_depend>
 
   <export/>
