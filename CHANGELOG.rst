@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.2 (2014-12-13)
+------------------
 * Re-release into ROS (addresses `#1 <https://github.com/tork-a/roswww/issues/3>`_)
 * Remove tornado (this dependency is supposed to be taken from rosbridge). Move webserver.py to src folder to follow more common python style (fix `#1 <https://github.com/tork-a/roswww/issues/1>`_)
 * Add dependency on rosbridge, webserver.py installation.
