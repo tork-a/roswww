@@ -36,13 +36,12 @@
 
 import socket
 import subprocess
-
-import roslib
-roslib.load_manifest('roswww')
-import rospy
-
 import tornado.ioloop  # rosbridge installs tornado
 import tornado.web
+
+import rospy
+
+from roswww.webrequest_handler import WebRequestHandler
 
 
 def run_shellcommand(*args):
@@ -51,11 +50,9 @@ def run_shellcommand(*args):
     return subprocess.Popen(args,
                             stdout=subprocess.PIPE).communicate()[0].strip()
 
-
 def split_words(text):
     '''return a list of lines where each line is a list of words'''
     return [line.strip().split() for line in text.split('\n')]
-
 
 def get_packages():
     '''
@@ -67,24 +64,6 @@ def get_packages():
     lines = split_words(run_shellcommand('rospack', 'list'))
     packages = [{'name': name, 'path': path} for name, path in lines]
     return packages
-
-
-class WebRequestHandler(tornado.web.RequestHandler):
-
-    def initialize(self, packages):
-        '''
-        @type packages: {str, str}
-        @param packages: name and path of ROS packages.
-        '''
-        self.packages = packages
-
-    def get(self):
-        self.write(
-          "<h1>ROS web server successfully started.</h1><h3>Package List</h3>")
-        for package in self.packages:
-            self.write(
-                  "<div style='font-size: 10px'>" + package['name'] + "</div>")
-
 
 def create_webserver(packages):
     '''
@@ -109,7 +88,6 @@ def create_webserver(packages):
 
     return application
 
-
 def bind_webserver(application):
     """ See if there's a default port, use 80 if not """
     default_port, start_port, end_port = get_webserver_params()
@@ -122,7 +100,6 @@ def bind_webserver(application):
         bound = bind_in_range(application, start_port, end_port)
 
     return bound
-
 
 def get_webserver_params():
     try:
@@ -138,7 +115,6 @@ def get_webserver_params():
             return 80, 8000, 9000
         else:
             raise
-
 
 def start_webserver(application):
     try:

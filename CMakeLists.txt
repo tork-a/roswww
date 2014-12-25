@@ -3,3 +3,5 @@ project(roswww)
 find_package(catkin REQUIRED)
 catkin_package()
 catkin_python_setup()
+
+install(DIRECTORY script DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
