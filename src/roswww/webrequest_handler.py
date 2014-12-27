@@ -34,7 +34,8 @@
 #
 # Author: Jonathan Mace, Jihoon Lee, Isaac Isao Saito
 
-import tornado.web
+from rosbridge_tools import find_tornado
+tornado = find_tornado()
 
 
 class WebRequestHandler(tornado.web.RequestHandler):
