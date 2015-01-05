@@ -2,6 +2,11 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Separate webserver.py into module and script files (quick fix to `#10 <https://github.com/tork-a/roswww/issues/10>`_).
+* Contributors: Isaac I.Y. Saito, Jihoon Lee
+
 0.1.2 (2014-12-13)
 ------------------
 * Re-release into ROS (addresses `#1 <https://github.com/tork-a/roswww/issues/3>`_)
