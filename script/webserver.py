@@ -36,9 +36,9 @@
 
 import socket
 import subprocess
+import tornado.ioloop  # rosbridge installs tornado
+import tornado.web
 
-from rosbridge_tools import find_tornado
-tornado = find_tornado()
 import rospy
 
 from roswww.webrequest_handler import WebRequestHandler
