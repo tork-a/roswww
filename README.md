@@ -1,4 +1,9 @@
 roswww
 ======
 
-roswww and roswww_pack. Convenient tool to develop the web apps under ROS infrastructure
+roswww Convenient tool to develop the web apps under ROS infrastructure
+
+## Parameters ##
+
+* `--port` : Web server port
+* `--name` : Web server name
