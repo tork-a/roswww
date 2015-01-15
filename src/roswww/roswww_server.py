@@ -44,12 +44,14 @@ from .utils import run_shellcommand, split_words, get_packages
 
 class ROSWWWServer():
 
-    def __init__(self, name, ports):
+    def __init__(self, name, webpath, ports):
         '''
           :param str name: webserver name
+          :param str webpath: package relative path to web page source. 
           :param tuple ports: ports to use in webserver. Provides default and scan range (default, start, end)
         '''
         self._name = name
+        self._webpath = webpath
         self._ports = ports
         self._logger = self._set_logger()
         self._packages = get_packages()
@@ -65,15 +67,16 @@ class ROSWWWServer():
         for package in packages:
             handler_root = ("/" + package['name'] + "/?()",
                             tornado.web.StaticFileHandler,
-                            {"path": package['path'] + "/www/index.html"})
+                            {"path": package['path'] + "/" + self._webpath + "/index.html"})
             handlers.append(handler_root)
             handler = ("/" + package['name'] + "/(.*)",
                        tornado.web.StaticFileHandler,
-                       {"path": package['path'] + "/www",
+                       {"path": package['path'] + "/" + self._webpath,
                         "default_filename": "index.html"})
             handlers.append(handler)
 
-        self.loginfo("Webserver initialized for %s packages"%(len(packages)))
+        self.loginfo("# of packages : %s"%(len(packages)))
+        self.loginfo("Weg Page root : %s"%(self._webpath))
         application = tornado.web.Application(handlers)
         return application
 

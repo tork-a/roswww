@@ -45,17 +45,18 @@ def parse_argument(argv):
     parser = argparse.ArgumentParser(description="ROSWWW Server")
     parser.add_argument('-n', '--name', default='80', help='Webserver name')
     parser.add_argument('-p', '--port', default='80', help='Webserver Port number')
+    parser.add_argument('-w', '--webpath', default='www', help='package relative path to web pages')
     parser.add_argument('--start_port', default='8000', help='setting up port scan range')
     parser.add_argument('--end_port', default='9000', help='setting up port scan range')
     parsed_args = parser.parse_args(argv)
 
-    return parsed_args.name, (parsed_args.port, parsed_args.start_port, parsed_args.end_port)
+    return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port)
 
 
 if __name__ == '__main__':
     argv = sys.argv 
-    name, port = parse_argument(argv[1:])
+    name, webpath, port = parse_argument(argv[1:])
 
-    webserver = roswww.ROSWWWServer(name, port)
+    webserver = roswww.ROSWWWServer(name, webpath, port)
     webserver.loginfo("Initialised")
     webserver.spin()
