@@ -14,6 +14,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>rosbridge_server</run_depend>
+  <run_depend>rospack</run_depend>
   <run_depend>rospy</run_depend>
 
   <export/>
