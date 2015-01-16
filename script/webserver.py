@@ -37,6 +37,7 @@
 import sys
 import argparse
 import roswww
+import rosgraph
 
 def parse_argument(argv):
     """
@@ -48,7 +49,9 @@ def parse_argument(argv):
     parser.add_argument('-w', '--webpath', default='www', help='package relative path to web pages')
     parser.add_argument('--start_port', default='8000', help='setting up port scan range')
     parser.add_argument('--end_port', default='9000', help='setting up port scan range')
-    parsed_args = parser.parse_args(argv)
+    
+    myargs = rosgraph.myargv(sys.argv[1:]) # strips ros arguements
+    parsed_args = parser.parse_args(myargs)
 
     return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port)
 
