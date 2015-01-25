@@ -1,0 +1,8 @@
+<launch>
+  <arg name="name" default="roswww"/>
+  <arg name="port" default="8085"/> <!-- avoid to use apache default port -->
+  <arg name="webpath" default="www"/> <!-- package webroot -->
+
+  <node pkg="roswww" type="webserver.py" name="$(arg name)" args="--name $(arg name) --port $(arg port) --webpath $(arg webpath)">
+  </node>
+</launch>

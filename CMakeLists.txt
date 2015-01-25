@@ -4,4 +4,8 @@ find_package(catkin REQUIRED)
 catkin_package()
 catkin_python_setup()
 
-install(DIRECTORY script DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS)
+install(
+  PROGRAMS
+    script/webserver.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

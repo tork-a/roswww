@@ -36,7 +36,6 @@
 
 import tornado.web
 
-
 class WebRequestHandler(tornado.web.RequestHandler):
 
     def initialize(self, packages):
