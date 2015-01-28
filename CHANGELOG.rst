@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2015-01-28)
+------------------
 * example launchfile. update dependency
 * configurable package web root
 * add parmeter in readme
