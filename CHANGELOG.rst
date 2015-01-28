@@ -2,6 +2,14 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* example launchfile. update dependency
+* configurable package web root
+* add parmeter in readme
+* classfy roswww webserver. remove ros runtime dependency
+* Contributors: Jihoon Lee, Isaac I.Y. Saito
+
 0.1.3 (2015-01-05)
 ------------------
 * Separate webserver.py into module and script files (quick fix to `#10 <https://github.com/tork-a/roswww/issues/10>`_).
