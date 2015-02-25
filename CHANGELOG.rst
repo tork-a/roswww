@@ -2,6 +2,11 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Install missing launch directory
+* Contributors: Jihoon Lee
+
 0.1.4 (2015-01-28)
 ------------------
 * example launchfile. update dependency
