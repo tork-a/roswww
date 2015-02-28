@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.5 (2015-02-28)
+------------------
 * Install missing launch directory
 * Contributors: Jihoon Lee
 
