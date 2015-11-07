@@ -2,15 +2,15 @@
 <package>
   <name>roswww</name>
   <version>0.1.5</version>
-  <description>roswww package</description>
+  <description>Feathery lightweight web server for ROS</description>
 
   <maintainer email="iisaito@opensource-robotics.tokyo.jp">Isaac Isao Saito</maintainer>
   <author>Jonathan Mace</author>
   <author email="jihoonl@yujinrobot.com">Jihoon Lee</author>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/roswww</url>
-  <url type="bugtracker">https://github.com/tork-a/roswww_pkg/issues</url>
-  <url type="repository">https://github.com/tork-a/roswww_pkg</url>
+  <url type="bugtracker">https://github.com/tork-a/roswww/issues</url>
+  <url type="repository">https://github.com/tork-a/roswww</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>rosbridge_server</run_depend>
