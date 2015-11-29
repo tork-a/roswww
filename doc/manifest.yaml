@@ -1,0 +1,18 @@
+actions: []
+authors: Jonathan Mace, Jihoon Lee <jihoonl@yujinrobot.com>
+brief: ''
+bugtracker: https://github.com/tork-a/roswww/issues
+depends:
+- python-catkin-pkg
+- rospack
+- rosbridge_server
+- catkin
+- rosgraph
+description: Feathery lightweight web server for ROS
+license: BSD
+maintainers: Isaac Isao Saito <iisaito@opensource-robotics.tokyo.jp>
+msgs: []
+package_type: package
+repo_url: https://github.com/tork-a/roswww
+srvs: []
+url: http://ros.org/wiki/roswww
