@@ -80,6 +80,8 @@ You can integrate web server capability from `roswww` by either launch file or p
 Integrate by launch
 ++++++++++++++++++++++++++++++++++++
 
+Examples are also available in packages in `visualization_rwt <https://github.com/tork-a/visualization_rwt>`_.
+
 1. In your own launch, include `roswww.launch` file. Customize arguments if necessary.
 
  ::
