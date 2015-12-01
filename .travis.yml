@@ -1,0 +1,40 @@
+sudo: required
+dist: trusty
+language: generic
+env:
+  matrix:
+    - USE_DEB=true  ROS_DISTRO="indigo" REPOSITORY=http://packages.ros.org/ros/ubuntu
+    - USE_DEB=true  ROS_DISTRO="indigo" REPOSITORY=http://packages.ros.org/ros-shadow-fixed/ubuntu
+matrix:
+  allow_failures:
+    - env: USE_DEB=true  ROS_DISTRO="jade"   REPOSITORY=http://packages.ros.org/ros/ubuntu
+    - env: USE_DEB=true  ROS_DISTRO="jade"   REPOSITORY=http://packages.ros.org/ros-shadow-fixed/ubuntu
+install:
+  - export CI_SOURCE_PATH=$(pwd)
+  - export REPOSITORY_NAME=${PWD##*/}
+  - echo "Testing branch $TRAVIS_BRANCH of $REPOSITORY_NAME"
+  - sudo sh -c "echo \"deb ${REPOSITORY} `lsb_release -cs` main\" > /etc/apt/sources.list.d/ros-latest.list"
+  - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq -y python-rosdep python-catkin-tools ros-${ROS_DISTRO}-catkin
+  - sudo rosdep init
+  - rosdep update
+script:
+  - mkdir -p ~/catkin_ws/src
+  - cd ~/catkin_ws
+  - ln -sf ${CI_SOURCE_PATH} src/${REPOSITORY_NAME}
+  - if [ "${USE_DEB}" == false ] ; then git clone https://github.com/start-jsk/open_industrial_ros_controllers src/open_industrial_ros_controllers; fi
+  - rosdep install --from-paths src -y --ignore-src --rosdistro ${ROS_DISTRO}
+  - source /opt/ros/${ROS_DISTRO}/setup.bash
+  - env | grep ROS
+  ## INSTALL
+  # Enable install space
+  - catkin config --install
+  # Build [and Install] packages
+  - catkin build --limit-status-rate 0.1 --no-notify -DCMAKE_BUILD_TYPE=Release
+  # Build tests
+  - catkin build --limit-status-rate 0.1 --no-notify --make-args tests
+  # Run tests
+  - catkin run_tests
+  # check test (this only works on indigo onward)
+  - catkin_test_results build
