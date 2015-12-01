@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.6 (2015-12-01)
+------------------
 * [sys] Add travis config and small unit tests (`#27 <https://github.com/tork-a/roswww/issues/27>`_)
 * [doc] Utilize rosdoc_lite for document generation on ros build farm (`#25 <https://github.com/tork-a/roswww/issues/25>`_)
 * Contributors: Isaac I.Y. Saito
