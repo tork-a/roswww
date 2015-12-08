@@ -5,13 +5,11 @@ catkin_package()
 catkin_python_setup()
 
 install(
-  PROGRAMS
-    script/webserver.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+  PROGRAMS script/webserver.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(DIRECTORY launch test www
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS
 )
 
 add_rostest(test/launch.test)
