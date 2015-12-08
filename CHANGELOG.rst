@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.7 (2015-12-07)
+------------------
 * [fix] Developers don't need to create a sample www directory now that it's installed (`#28 <https://github.com/tork-a/roswww/issues/28>`_)
 * [fix][test] Use install space for testing (to capture the issue raised in `#28 <https://github.com/tork-a/roswww/issues/28>`_)
 * Contributors: Kenta Yonekura, Isaac I.Y. Saito
