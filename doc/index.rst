@@ -103,6 +103,23 @@ Integrate by Python module
 
 Use `roswww.roswww_server.ROSWWWServer <http://docs.ros.org/indigo/api/roswww/html/roswww__server_8py.html>`_ class to include the ROS web server capability into your Python package.
 
+Sample
+========
+
+Static page
+--------------
+
+When you launch the roswww, you can access static pages(html) which are installed in share/%PACKAGE_NAME%/www folder through http://localhost:%PORT_OF_YOURCHOICE%/%PACKAGE_NAME%/%STATIC_PAGE%.html. 
+
+Chat
+------
+
+To play with the rostopic, you can launch a simple chat:
+
+  $ roslaunch roswww chat.launch
+
+Let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
+
 Support, communication
 ==========================
 
