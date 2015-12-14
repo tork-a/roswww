@@ -126,3 +126,11 @@ Support, communication
  * `ROS Answers <http://answers.ros.org/>`_ for questions.
  * `Issue tracker <https://github.com/tork-a/roswww/issues>`_ for issues.
  * You could also ask ROS-web related discussions on `robot-web-tools <https://groups.google.com/forum/#!forum/robot-web-tools>`_ ML. Note that roswww is an individual tool from `robot-web-tools`.
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
