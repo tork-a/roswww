@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.8 (2015-12-14)
+------------------
 * [doc] Add rostopic-chat sample `#31 <https://github.com/tork-a/roswww/issues/31>`_
 * [sys] Utilize test_depend that is defined in REP-140 `#30 <https://github.com/tork-a/roswww/issues/30>`_ from 130s/impr/utilize_testdepend
 * Contributors: Kenta Yonekura, Isaac I.Y. Saito
