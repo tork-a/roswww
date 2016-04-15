@@ -109,15 +109,14 @@ Sample
 Static page
 --------------
 
+  $ roslaunch roswww roswww.launch
+
 When you launch the roswww, you can access static pages(html) which are installed in share/%PACKAGE_NAME%/www folder through http://localhost:%PORT_OF_YOURCHOICE%/%PACKAGE_NAME%/%STATIC_PAGE%.html. 
 
 Chat
 ------
 
-To play with the rostopic, you can launch a simple chat:
-
-  $ roslaunch roswww chat.launch
-
+After launching roswww, you can chat through the rostopic.
 Let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
 
 Support, communication
