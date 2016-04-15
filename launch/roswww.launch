@@ -5,4 +5,5 @@
 
   <node pkg="roswww" type="webserver.py" name="$(arg name)" args="--name $(arg name) --port $(arg port) --webpath $(arg webpath)">
   </node>
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
 </launch>
