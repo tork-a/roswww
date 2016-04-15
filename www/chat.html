@@ -35,17 +35,22 @@ if(!Chat){
 
 			var sub = new ROSLIB.Topic({
 				ros : this.ros,
-				name : '/chat',
+				name : '/chatter',
 				messageType : 'std_msgs/String'
 			});
 			sub.subscribe(function(message) {
 				var res = message.data;
-				var date = res.substring(1, res.indexOf("]"));
-				res = res.substring(res.indexOf("]")+1, res.length);
-				var name = res.substring(0, res.indexOf(":"));
-				res = res.substring(res.indexOf(":")+1, res.length);
+				var contents = ""
+				if(res.match(/(\[.+\])(.*):(.*)/)){
+					var str_date = RegExp.$1;
+					var name = RegExp.$2;
+					var comment = RegExp.$3;
+					contents = str_date + " <b>" + name + " :</b> " + comment;
+				}else{
+					contents = res;
+				}
 				var el = document.createElement("p");
-				el.innerHTML = "[" + date + "] <b>" + name + " :</b> " + res;
+				el.innerHTML = contents;
 				//document.getElementById("talk").appendChild(el);
 				document.getElementById("talk").insertBefore(el, document.getElementById("talk").childNodes[0]);
 
@@ -70,7 +75,7 @@ if(!Chat){
 			var comment = document.getElementById("comment").value;
 			var pub = new ROSLIB.Topic({
 				ros : this.ros,
-				name : '/chat',
+				name : '/chatter',
 				messageType : 'std_msgs/String'
 			});
 
