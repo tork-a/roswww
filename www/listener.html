@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+  <script>
+  // Connecting to ROS
+  // -----------------
+  var ros = new ROSLIB.Ros();
+
+  // Create a connection to the rosbridge WebSocket server.
+  ros.connect('ws://localhost:9090');
+
+  //Subscribing to a Topic
+  //----------------------
+
+  // We first create a Topic object with details of the topic's name
+  // and message type. Note that we can call publish or subscribe on the same topic object.
+  var listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/chatter',
+    messageType : 'std_msgs/String'
+  });
+
+  // Then we add a callback to be called every time a message is published on this topic.
+  listener.subscribe(function(message) {
+    console.log('Received message on ' + listener.name + ': ' +  message.data);
+
+    var a = document.getElementById('textArea');
+    a.textContent = new Date() + ' : Received message on ' + listener.name + ': ' + message.data;
+  });
+
+  </script>
+</head>
+
+<body>
+  <h1></h1>
+  <div id="modal" class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Simple roslib Example (listener)
+      </div>
+      <div class="panel-body">
+        <p>Run the following commands in the terminal.</p>
+        <ul>
+          <li><tt>rostopic pub -r 1 /chatter std_msgs/String "Hello,  World"</tt></li>
+        </ul>
+        <p> If it not working well , check the JavaScript console for the
+          output or Shift+F5 to reload without Cache.</p>
+        <div class="well" id="textArea"> </div>
+      </div>
+    </div>
+</body>
+</html>
