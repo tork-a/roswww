@@ -2,6 +2,13 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Changed the target topic to communicate other samples, Rename from chat.launch to start_bridge.launch (`#33 <https://github.com/tork-a/roswww/issues/33>`_)
+* add example for talker and listener (`#33 <https://github.com/tork-a/roswww/issues/33>`_)
+* [doc] trying to fix that module api doc is gone inaccessible (`#32 <https://github.com/tork-a/roswww/issues/32>`_ )
+* Contributors: Isaac I.Y. Saito, Kei Okada, Kenta Yonekura
+
 0.1.8 (2015-12-14)
 ------------------
 * [doc] Add rostopic-chat sample `#31 <https://github.com/tork-a/roswww/issues/31>`_
