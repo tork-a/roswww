@@ -111,14 +111,19 @@ Static page
 
 When you launch the roswww, you can access static pages(html) which are installed in share/%PACKAGE_NAME%/www folder through http://localhost:%PORT_OF_YOURCHOICE%/%PACKAGE_NAME%/%STATIC_PAGE%.html. 
 
+Simple talker and listener
+--------------
+
+To play with the rostopic, you can launch a simple talker and listener:
+
+  $ roslaunch roswww start_bridge.launch
+
+You can send a message through ROS topic from http://localhost:%PORT_OF_YOURCHOICE%/roswww/talker.html. And also, you can subscribe the message on http://localhost:%PORT_OF_YOURCHOICE%/roswww/listener.html.
+
 Chat
-------
+--------------
 
-To play with the rostopic, you can launch a simple chat:
-
-  $ roslaunch roswww chat.launch
-
-Let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
+After launching start_bridge.launch, let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
 
 Support, communication
 ==========================
