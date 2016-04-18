@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.9 (2016-04-18)
+------------------
 * Changed the target topic to communicate other samples, Rename from chat.launch to start_bridge.launch (`#33 <https://github.com/tork-a/roswww/issues/33>`_)
 * add example for talker and listener (`#33 <https://github.com/tork-a/roswww/issues/33>`_)
 * [doc] trying to fix that module api doc is gone inaccessible (`#32 <https://github.com/tork-a/roswww/issues/32>`_ )
