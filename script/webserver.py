@@ -47,19 +47,22 @@ def parse_argument(argv):
     parser.add_argument('-n', '--name', default='80', help='Webserver name')
     parser.add_argument('-p', '--port', default='80', help='Webserver Port number')
     parser.add_argument('-w', '--webpath', default='www', help='package relative path to web pages')
+    parser.add_argument('--cached', default='true', help='static file is cached')
     parser.add_argument('--start_port', default='8000', help='setting up port scan range')
     parser.add_argument('--end_port', default='9000', help='setting up port scan range')
-    
+
     myargs = rosgraph.myargv(sys.argv[1:]) # strips ros arguements
     parsed_args = parser.parse_args(myargs)
 
-    return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port)
+    return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port), parsed_args.cached
 
 
 if __name__ == '__main__':
-    argv = sys.argv 
-    name, webpath, port = parse_argument(argv[1:])
+    argv = sys.argv
+    name, webpath, port, cached = parse_argument(argv[1:])
 
-    webserver = roswww.ROSWWWServer(name, webpath, port)
+    cached = False if cached in [0, False, 'false', 'False'] else True
+
+    webserver = roswww.ROSWWWServer(name, webpath, port, cached)
     webserver.loginfo("Initialised")
     webserver.spin()
