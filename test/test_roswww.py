@@ -68,16 +68,16 @@ class TestRoswww(unittest.TestCase):
             rest = requests.get(url)
         except ConnectionError:
             rospy.logerr('http request failed.')
-            
+
         self.assertIsNotNone(rest)
-        
+
     def test_roswww_by_launch(self):
         ''' Test if roswww server is running, ensured by downloading index.htm'''
         self._is_wwwserver_running()
 
     def test_roswww_by_pythonmod(self):
         ''' Test if roswww server is running, which is run via Python module'''
-        ROSWWWServer('test_roswwww_py', 'www', '8086')         
+        ROSWWWServer('test_roswwww_py', 'www', '8086', True)
         self._is_wwwserver_running()
 
 if __name__ == '__main__':
