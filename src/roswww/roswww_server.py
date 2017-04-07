@@ -44,33 +44,40 @@ from .utils import run_shellcommand, split_words, get_packages
 
 class ROSWWWServer():
 
-    def __init__(self, name, webpath, ports):
+    def __init__(self, name, webpath, ports, cached):
         '''
           :param str name: webserver name
-          :param str webpath: package relative path to web page source. 
+          :param str webpath: package relative path to web page source.
           :param tuple ports: ports to use in webserver. Provides default and scan range (default, start, end)
         '''
         self._name = name
         self._webpath = webpath
         self._ports = ports
+        self._cached = cached
         self._logger = self._set_logger()
         self._packages = get_packages()
         self._application = self._create_webserver(self._packages)
-        
+
     def _create_webserver(self, packages):
         '''
         @type packages: {str, str}
         @param packages: name and path of ROS packages.
         '''
+        class NoCacheStaticFileHandler(tornado.web.StaticFileHandler):
+            def set_extra_headers(self, path):
+                self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+
+        file_handler = tornado.web.StaticFileHandler if self._cached else NoCacheStaticFileHandler
+
         handlers = [(r"/", WebRequestHandler, {"packages": packages})]
 
         for package in packages:
             handler_root = ("/" + package['name'] + "/?()",
-                            tornado.web.StaticFileHandler,
+                            file_handler,
                             {"path": package['path'] + "/" + self._webpath + "/index.html"})
             handlers.append(handler_root)
             handler = ("/" + package['name'] + "/(.*)",
-                       tornado.web.StaticFileHandler,
+                       file_handler,
                        {"path": package['path'] + "/" + self._webpath,
                         "default_filename": "index.html"})
             handlers.append(handler)
@@ -82,13 +89,13 @@ class ROSWWWServer():
 
     def _bind_webserver(self):
         default, start, end = self._ports
-        
+
         """ First, we try the default http port """
         bound = self._bind_to_port(self._application, default)
         if not bound:
-            """ Otherwise bind any available port within the specified range """ 
+            """ Otherwise bind any available port within the specified range """
             bound = self._bind_in_range(self._application, start, end)
-        return True 
+        return True
 
     def _bind_in_range(self, application, start_port, end_port):
         if (end_port > start_port):
@@ -158,7 +165,7 @@ class ROSWWWServer():
 
     def loginfo(self, msg):
         self._logger.info('%s : %s'%(self._name, msg))
-    
+
     def logwarn(self, msg):
         self._logger.warning('%s : %s'%(self._name, msg))
 

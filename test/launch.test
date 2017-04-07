@@ -2,17 +2,19 @@
   <arg name="name" default="roswww"/>
   <arg name="port" default="8086"/> <!-- avoid to use apache default port -->
   <arg name="webpath" default="www"/> <!-- package webroot -->
+  <arg name="cached" default="true"/>
 
   <include file="$(find roswww)/launch/roswww.launch">
     <arg name="name" value="$(arg name)"/>
     <arg name="port" value="$(arg port)"/>
     <arg name="webpath" value="$(arg webpath)"/>
+    <arg name="cached" value="$(arg cached)"/>
   </include>
   <param name='url_roswww_testserver' value='http://localhost:$(arg port)' />
 
   <test type="test_roswww.py" pkg="roswww" test-name="test_roswww"
         time-limit="100" args="" />
-<!--         
+<!--
   <test pkg="rostest" type="hztest" test-name="test_move_group" name="test_move_group" time-limit="60">
     <param name="test_move_group/topic" value="/move_group/status" />
     <param name="test_move_group/hz" value="5.0" />
@@ -20,5 +22,5 @@
     <param name="test_move_group/test_duration" value="5.0" />
     <param name="test_move_group/wait_time" value="30.0" />
   </test>
- -->    
+ -->
 </launch>
