@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.10 (2017-04-07)
+-------------------
 * [capability] Add dis/enabling cache feature `#39 <https://github.com/tork-a/roswww/issues/39>`_
 * [fix] Add missing dependency for test for Xenial. `#38 <https://github.com/tork-a/roswww/issues/38>`_
 * Contributors: Taiji Fukaya, Isaac I.Y. Saito
