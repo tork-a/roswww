@@ -2,6 +2,12 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* [capability] Add dis/enabling cache feature `#39 <https://github.com/tork-a/roswww/issues/39>`_
+* [fix] Add missing dependency for test for Xenial. `#38 <https://github.com/tork-a/roswww/issues/38>`_
+* Contributors: Taiji Fukaya, Isaac I.Y. Saito
+
 0.1.9 (2016-04-18)
 ------------------
 * Changed the target topic to communicate other samples, Rename from chat.launch to start_bridge.launch (`#33 <https://github.com/tork-a/roswww/issues/33>`_)
