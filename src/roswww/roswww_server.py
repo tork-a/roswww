@@ -72,10 +72,17 @@ class ROSWWWServer():
         handlers = [(r"/", WebRequestHandler, {"packages": packages})]
 
         for package in packages:
-            handler_root = ("/" + package['name'] + "/?()",
+            handler_root = ("/" + package['name'] + "/()",
                             file_handler,
                             {"path": package['path'] + "/" + self._webpath + "/index.html"})
             handlers.append(handler_root)
+
+            # redirect '/<package>' -> /<package>/'
+            handler = ('/' + package['name'],
+                       tornado.web.RedirectHandler,
+                       {'url': '/' + package['name'] + '/'})
+            handlers.append(handler)
+
             handler = ("/" + package['name'] + "/(.*)",
                        file_handler,
                        {"path": package['path'] + "/" + self._webpath,
