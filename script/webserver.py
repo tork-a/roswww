@@ -34,35 +34,31 @@
 #
 # Author: Jonathan Mace, Jihoon Lee, Isaac Isao Saito
 
-import sys
 import argparse
 import roswww
-import rosgraph
+import rospy
+
 
 def parse_argument(argv):
     """
     argument parser for roswww server configuration
     """
     parser = argparse.ArgumentParser(description="ROSWWW Server")
-    parser.add_argument('-n', '--name', default='80', help='Webserver name')
-    parser.add_argument('-p', '--port', default='80', help='Webserver Port number')
+    parser.add_argument('-n', '--name', default=rospy.get_name(), help='Webserver name')
+    parser.add_argument('-p', '--port', default=80, type=int, help='Webserver Port number')
     parser.add_argument('-w', '--webpath', default='www', help='package relative path to web pages')
     parser.add_argument('--cached', default='true', help='static file is cached')
-    parser.add_argument('--start_port', default='8000', help='setting up port scan range')
-    parser.add_argument('--end_port', default='9000', help='setting up port scan range')
+    parser.add_argument('--start_port', default=8000, type=int, help='setting up port scan range')
+    parser.add_argument('--end_port', default=9000, type=int, help='setting up port scan range')
 
-    myargs = rosgraph.myargv(sys.argv[1:]) # strips ros arguements
-    parsed_args = parser.parse_args(myargs)
-
-    return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port), parsed_args.cached
+    parsed_args = parser.parse_args(argv)
+    cached = False if parsed_args.cached in [0, False, 'false', 'False'] else True
+    return parsed_args.name, parsed_args.webpath, (parsed_args.port, parsed_args.start_port, parsed_args.end_port), cached
 
 
 if __name__ == '__main__':
-    argv = sys.argv
-    name, webpath, port, cached = parse_argument(argv[1:])
-
-    cached = False if cached in [0, False, 'false', 'False'] else True
-
+    rospy.init_node("webserver", disable_signals=True)
+    name, webpath, port, cached = parse_argument(rospy.myargv()[1:])
     webserver = roswww.ROSWWWServer(name, webpath, port, cached)
     webserver.loginfo("Initialised")
     webserver.spin()
