@@ -1,3 +1,23 @@
 <html>
-<body>roswww, sup?</body>
+  <head>
+    <title>roswww</title>
+    <meta charset="utf-8" />
+    <link href="css/index.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1 id="title">roswww, sup?</h1>
+    <h3 id="relative-link-check">Relative link check displays here</h3>
+    <script>
+     window.onload = function() {
+       var title = document.getElementById("title");
+       var check = document.getElementById("relative-link-check");
+       var bgColor = window.getComputedStyle(title).backgroundColor.match(/\d+/g);
+       if (bgColor[0] != 244) {
+         check.innerText = "Relative link is not loaded";
+       } else {
+         check.innerText = "Relative link is loaded";
+       }
+      };
+    </script>
+  </body>
 </html>

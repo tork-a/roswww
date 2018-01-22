@@ -34,51 +34,69 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 # Author: Isaac I.Y. Saito
+# Author: Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>
 
-import requests
-from requests import ConnectionError
-import unittest
-
+import os
 import rospy
 import rostest
+import unittest
 
-from roswww.roswww_server import ROSWWWServer
+from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
-_PKG = 'roswww'
 
+class TestClient(unittest.TestCase):
 
-class TestRoswww(unittest.TestCase):
-    '''    '''
+    def setUp(self):
+        self.url_base = rospy.get_param("url_roswww_testserver")
 
-    @classmethod
-    def setUpClass(cls):
-        ''' Assume roswww server is not running'''
-        True
-
-    @classmethod
-    def tearDownClass(cls):
-        True
-
-    def _is_wwwserver_running(self):
-        rest = None
-        url = rospy.get_param('url_roswww_testserver')
-        rospy.loginfo('URL used for the server: {}'.format(url))
-        print('URL used for the server: {}'.format(url))
         try:
-            rest = requests.get(url)
-        except ConnectionError:
-            rospy.logerr('http request failed.')
+            opts = webdriver.firefox.options.Options()
+            opts.set_headless(True)
+            self.browser = webdriver.Firefox(firefox_options=opts)
+        except WebDriverException:
+            rospy.logwarn("Failling back to PhantomJS driver")
+            self.browser = webdriver.PhantomJS()
 
-        self.assertIsNotNone(rest)
+        self.wait = webdriver.support.ui.WebDriverWait(self.browser, 10)
+        # maximize screen
+        self.browser.find_element_by_tag_name("html").send_keys(Keys.F11)
 
-    def test_roswww_by_launch(self):
-        ''' Test if roswww server is running, ensured by downloading index.htm'''
-        self._is_wwwserver_running()
+    def tearDown(self):
+        try:
+            self.browser.close()
+            self.browser.quit()
+        except:
+            pass
 
-    def test_roswww_by_pythonmod(self):
-        ''' Test if roswww server is running, which is run via Python module'''
-        ROSWWWServer('test_roswwww_py', 'www', '8086', True)
-        self._is_wwwserver_running()
+    def _check_index(self, url):
+        rospy.logwarn("Accessing to %s" % url)
+
+        self.browser.get(url)
+        self.wait.until(EC.presence_of_element_located((By.ID, "title")))
+
+        title = self.browser.find_element_by_id("title")
+        self.assertIsNotNone(title, "Object id=title not found")
+
+        # check load other resouces
+        self.wait.until(EC.presence_of_element_located((By.ID, "relative-link-check")))
+        check = self.browser.find_element_by_id("relative-link-check")
+        self.assertIsNotNone(check, "Object id=relative-link-check not found")
+        self.assertEqual(check.text, "Relative link is loaded",
+                         "Loading 'css/index.css' from 'index.html' failed")
+
+    def test_index_served(self):
+        url = '%s/roswww/' % (self.url_base)
+        self._check_index(url)
+
+    def test_index_redirected(self):
+        url = '%s/roswww' % (self.url_base)
+        self._check_index(url)
+
 
 if __name__ == '__main__':
-    rostest.rosrun(_PKG, 'test_roswww', TestRoswww)
+    rospy.init_node("test_client")
+    exit(rostest.rosrun("roswww", "test_client", TestClient))
