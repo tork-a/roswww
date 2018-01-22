@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.11 (2018-01-22)
+-------------------
 * Enable client testing && fix redirect bug (`#42 <https://github.com/tork-a/roswww/issues/42>`_)
   * disable test for prerelease / stable ros repo
   * fix test script for kinetic
