@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.12 (2019-03-20)
+-------------------
 * [doc] Minor URL update. (`#40 <https://github.com/tork-a/roswww/issues/40>`_)
 * fix CDN URL (`#45 <https://github.com/tork-a/roswww/issues/45>`_)
 * Contributors: Isaac I.Y. Saito, Makito Ishikura
