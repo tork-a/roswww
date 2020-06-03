@@ -4,7 +4,7 @@ find_package(catkin REQUIRED)
 catkin_package()
 catkin_python_setup()
 
-install(
+catkin_install_python(
   PROGRAMS script/webserver.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
