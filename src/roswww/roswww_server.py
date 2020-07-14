@@ -36,15 +36,48 @@
 
 import logging
 
+import base64
+import functools
 import socket
 import tornado.ioloop  # rosbridge installs tornado
 import tornado.web
+import yaml
+
 from .webrequest_handler import WebRequestHandler
 from .utils import run_shellcommand, split_words, get_packages
 
+
+def basic_auth(auth):
+    def decore(f):
+        def _request_auth(handler):
+            handler.set_header('WWW-Authenticate', 'Basic realm=JSL')
+            handler.set_status(401)
+            handler.finish()
+            return False
+
+        @functools.wraps(f)
+        def new_f(*args):
+            handler = args[0]
+            auth_header = handler.request.headers.get('Authorization')
+            if auth_header is None:
+                return _request_auth(handler)
+            if not auth_header.startswith('Basic '):
+                return _request_auth(handler)
+
+            auth_decoded = base64.decodestring(auth_header.split(' ', 1)[1])
+            username, password = auth_decoded.split(':', 1)
+
+            if auth(username, password):
+                f(*args)
+            else:
+                _request_auth(handler)
+        return new_f
+    return decore
+
+
 class ROSWWWServer():
 
-    def __init__(self, name, webpath, ports, cached):
+    def __init__(self, name, webpath, ports, cached, basic=False, basic_yaml=None):
         '''
           :param str name: webserver name
           :param str webpath: package relative path to web page source.
@@ -54,20 +87,51 @@ class ROSWWWServer():
         self._webpath = webpath
         self._ports = ports
         self._cached = cached
+        self._basic = basic
         self._logger = self._set_logger()
         self._packages = get_packages()
         self._application = self._create_webserver(self._packages)
+        if self._basic:
+            if basic_yaml:
+                with open(basic_yaml) as f:
+                    self._keys = yaml.safe_load(f)
+            else:
+                self._keys = {'admin': 'admin'}
 
     def _create_webserver(self, packages):
         '''
         @type packages: {str, str}
         @param packages: name and path of ROS packages.
         '''
+        def _auth(username, password):
+            if username in self._keys:
+                return self._keys[username] == password
+            return False
+
         class NoCacheStaticFileHandler(tornado.web.StaticFileHandler):
             def set_extra_headers(self, path):
                 self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
 
-        file_handler = tornado.web.StaticFileHandler if self._cached else NoCacheStaticFileHandler
+        class BasicStaticFileHandler(tornado.web.StaticFileHandler):
+            @basic_auth(_auth)
+            def get(self, path, include_body=True):
+                super(BasicStaticFileHandler, self).get(path, include_body)
+
+        class BasicNoCacheStaticFileHandler(NoCacheStaticFileHandler):
+            @basic_auth(_auth)
+            def get(self, path, include_body=True):
+                super(BasicNoCacheStaticFileHandler, self).get(path, include_body)
+
+        if self._cached:
+            if self._basic:
+                file_handler = BasicStaticFileHandler
+            else:
+                file_handler = tornado.web.StaticFileHandler
+        else:
+            if self._basic:
+                file_handler = BasicNoCacheStaticFileHandler
+            else:
+                file_handler = NoCacheStaticFileHandler
 
         handlers = [(r"/", WebRequestHandler, {"packages": packages})]
 
