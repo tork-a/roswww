@@ -2,6 +2,7 @@
   <arg name="name" default="roswww"/>
   <arg name="webpath" default="www"/> <!-- package webroot -->
   <arg name="cached" default="true"/>
+  <arg name="basic" default="false"/>
 
   <arg name="port" default="8085"/>
   <arg name="start_port" default="$(arg port)" />
@@ -9,5 +10,6 @@
 
   <node pkg="roswww" type="webserver.py" name="$(arg name)"
         args="--name $(arg name) --webpath $(arg webpath) --cached $(arg cached)
-              --port $(arg port) --start_port $(arg start_port) --end_port $(arg end_port)" />
+              --basic $(arg basic) --port $(arg port)
+              --start_port $(arg start_port) --end_port $(arg end_port)" />
 </launch>
