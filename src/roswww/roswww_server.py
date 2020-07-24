@@ -50,7 +50,7 @@ from .utils import run_shellcommand, split_words, get_packages
 def basic_auth(auth):
     def decore(f):
         def _request_auth(handler):
-            handler.set_header('WWW-Authenticate', 'Basic realm=JSL')
+            handler.set_header('WWW-Authenticate', 'Basic realm=roswww')
             handler.set_status(401)
             handler.finish()
             return False
