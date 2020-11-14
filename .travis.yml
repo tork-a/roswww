@@ -22,8 +22,13 @@ env:
     - ROS_DISTRO="jade"
     - ROS_DISTRO="kinetic"
     - ROS_DISTRO="lunar"
+    - ROS_DISTRO="melodic"
+    - ROS_DISTRO="noetic"
 matrix:
   fast_finish: true
+  allow_failures:
+    - env: ROS_DISTRO="jade"
+    - env: ROS_DISTRO="lunar"
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
 script:
