@@ -18,6 +18,7 @@ env:
     - ADDITIONAL_DEBS="firefox"
     - BEFORE_INIT="apt-get update && apt-get install -y curl && curl -L -o /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz && cd /tmp && tar xf geckodriver.tar.gz && chmod +x geckodriver && cp -f geckodriver /usr/local/bin && geckodriver --version"
   matrix:
+    - CHECK_PYTHON3_COMPILE=true
     - ROS_DISTRO="indigo"
     - ROS_DISTRO="jade"
     - ROS_DISTRO="kinetic"
@@ -32,5 +33,6 @@ matrix:
 install:
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
 script:
+  - if [ "${CHECK_PYTHON3_COMPILE}" == "true" ]; then python3 -m compileall .; exit $?; fi
   - .ci_config/travis.sh
 #  - source ./travis.sh  # Enable this when you have a package-local script 
