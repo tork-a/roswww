@@ -19,7 +19,7 @@
   <exec_depend>rosgraph</exec_depend>
   <exec_depend>rospack</exec_depend>
   <test_depend condition="$ROS_PYTHON_VERSION == 2">python-selenium-pip</test_depend>
-  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-selenium-pip</test_depend>
+  <test_depend condition="$ROS_PYTHON_VERSION == 3">python3-selenium</test_depend>
   <test_depend>rostest</test_depend>
   <export>
     <rosdoc config="rosdoc.yaml" />
