@@ -36,13 +36,11 @@
 # Author: Isaac I.Y. Saito
 # Author: Yuki Furuta <furushchev@jsk.imi.i.u-tokyo.ac.jp>
 
-import os
 import rospy
 import rostest
 import unittest
 
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -53,13 +51,9 @@ class TestClient(unittest.TestCase):
     def setUp(self):
         self.url_base = rospy.get_param("url_roswww_testserver")
 
-        try:
-            opts = webdriver.firefox.options.Options()
-            opts.set_headless(True)
-            self.browser = webdriver.Firefox(firefox_options=opts)
-        except WebDriverException:
-            rospy.logwarn("Failling back to PhantomJS driver")
-            self.browser = webdriver.PhantomJS()
+        opts = webdriver.firefox.options.Options()
+        opts.add_argument('-headless')
+        self.browser = webdriver.Firefox(options=opts)
 
         self.wait = webdriver.support.ui.WebDriverWait(self.browser, 10)
         # maximize screen
