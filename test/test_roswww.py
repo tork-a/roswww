@@ -52,8 +52,8 @@ class TestClient(unittest.TestCase):
         self.url_base = rospy.get_param("url_roswww_testserver")
 
         opts = webdriver.firefox.options.Options()
-        opts.set_headless(True)
-        self.browser = webdriver.Firefox(firefox_options=opts)
+        opts.add_argument('-headless')
+        self.browser = webdriver.Firefox(options=opts)
 
         self.wait = webdriver.support.ui.WebDriverWait(self.browser, 10)
         # maximize screen
