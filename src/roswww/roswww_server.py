@@ -44,7 +44,7 @@ from .utils import run_shellcommand, split_words, get_packages
 
 class ROSWWWServer():
 
-    def __init__(self, name, webpath, ports, cached):
+    def __init__(self, name, webpath, ports, cached, single_package=None):
         '''
           :param str name: webserver name
           :param str webpath: package relative path to web page source.
@@ -56,9 +56,9 @@ class ROSWWWServer():
         self._cached = cached
         self._logger = self._set_logger()
         self._packages = get_packages()
-        self._application = self._create_webserver(self._packages)
+        self._application = self._create_webserver(self._packages, single_package=single_package)
 
-    def _create_webserver(self, packages):
+    def _create_webserver(self, packages, single_package=None):
         '''
         @type packages: {str, str}
         @param packages: name and path of ROS packages.
@@ -68,6 +68,16 @@ class ROSWWWServer():
                 self.set_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
 
         file_handler = tornado.web.StaticFileHandler if self._cached else NoCacheStaticFileHandler
+
+        if single_package:
+            for package in packages:
+                if package['name'] == single_package:
+                    path = package['path'] + "/" + self._webpath
+                    handlers = [("/(.*)", file_handler, {"path": path, "default_filename": "index.html"})]
+                    self.loginfo("Single package mode: root=%s"%(path))
+                    application = tornado.web.Application(handlers)
+                    return application
+            raise Exception("package %s not found"%(single_package))
 
         handlers = [(r"/", WebRequestHandler, {"packages": packages})]
 
