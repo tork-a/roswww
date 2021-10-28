@@ -2,6 +2,41 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add basic authentication (`#57 <https://github.com/tork-a/roswww/issues/57>`_
+
+ - original PR `#51 <https://github.com/tork-a/roswww/issues/51>`_
+
+* add single package mode (`#56 <https://github.com/tork-a/roswww/issues/56>`_)
+
+  * original PR `#54 <https://github.com/tork-a/roswww/issues/54>`_
+
+* add more test on listener.html / talker .html `#55 <https://github.com/tork-a/roswww/issues/55>`_
+
+  * make python 2/3 compatible
+  * use .travis.sh to compile with --install option
+  * drop indigo/jade/lunar
+  * add test for listner/talker
+
+* fix travis build and add melodic and noetic test (`#53 <https://github.com/tork-a/roswww/issues/53>`_)
+
+  * use add_arguent('-headless') to disable display
+  * python3 returns bytes in subproces.Popen.communicate
+  c.f. https://stackoverflow.com/questions/33054527/typeerror-a-bytes-like-object-is-required-not-str-when-writing-to-a-file-in
+  https://stackoverflow.com/questions/15374211/why-does-popen-communicate-return-bhi-n-instead-of-hi
+  * use python3-selenium instead of pip
+  * add python3 compile test
+  * python3 support for noetic
+  * remove phantomjs dependency
+  * use latest geckodriver version
+  * use firefox instead of phantomjs
+  * add noetic, melodic and allow failure for jade, lunar
+  * install wget in BEFORE_INIT
+  * use BEFORE_INIT instead of BEFORE_SCRIPT
+
+* Contributors: Kai-Uwe Hermann, Kei Okada, Shingo Kitagawa, Takashi Ogura
+
 0.1.12 (2019-03-20)
 -------------------
 * [doc] Minor URL update. (`#40 <https://github.com/tork-a/roswww/issues/40>`_)
