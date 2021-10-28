@@ -104,6 +104,7 @@ class ROSWWWServer():
         @param packages: name and path of ROS packages.
         '''
         def _auth(username, password):
+            self.loginfo("User %s attempt to login"%(username))
             if username in self._keys:
                 return self._keys[username] == password
             return False
@@ -132,6 +133,7 @@ class ROSWWWServer():
                 file_handler = BasicNoCacheStaticFileHandler
             else:
                 file_handler = NoCacheStaticFileHandler
+        self.loginfo("Configure webserver with cache:%s, basic:%s"%(self._cached, self._basic))
 
         if single_package:
             for package in packages:
