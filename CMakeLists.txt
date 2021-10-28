@@ -10,14 +10,15 @@ catkin_install_python(
 
 install(DIRECTORY launch test www
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION} USE_SOURCE_PERMISSIONS
-  PATTERN "test/test_roswww.py" EXCLUDE
+  PATTERN "test/test_*.py" EXCLUDE
 
 )
 catkin_install_python(
-  PROGRAMS test/test_roswww.py
+  PROGRAMS test/test_roswww.py test/test_single.py
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/test)
 
 if (CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
   add_rostest(test/launch.test)
+  add_rostest(test/single.test)
 endif()
