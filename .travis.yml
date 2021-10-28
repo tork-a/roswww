@@ -1,7 +1,7 @@
 # This config file for Travis CI utilizes ros-industrial/industrial_ci package.
 # For more info for the package, see https://github.com/ros-industrial/industrial_ci/blob/master/README.rst
 sudo: required
-dist: trusty
+dist: xenial
 services:
   - docker
 language: generic
@@ -12,24 +12,20 @@ notifications:
     recipients:
       - gm130s@gmail.com
 env:
-  global:
-    - ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
-    # install geckodriver for testing
-    - ADDITIONAL_DEBS="firefox"
-    - BEFORE_INIT="apt-get update && apt-get install -y curl && curl -L -o /tmp/geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz && cd /tmp && tar xf geckodriver.tar.gz && chmod +x geckodriver && cp -f geckodriver /usr/local/bin && geckodriver --version"
   matrix:
     - CHECK_PYTHON3_COMPILE=true
-    - ROS_DISTRO="kinetic"
-    - ROS_DISTRO="melodic"
-    - ROS_DISTRO="noetic"
+    - ROS_DISTRO="kinetic" DOCKER_IMAGE=ubuntu:xenial
+    - ROS_DISTRO="melodic" DOCKER_IMAGE=ubuntu:bionic
+    - ROS_DISTRO="noetic"  DOCKER_IMAGE=ubuntu:focal
 matrix:
   fast_finish: true
   allow_failures:
     - env: ROS_DISTRO="jade"
     - env: ROS_DISTRO="lunar"
-install:
-  - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
+before_script:
+  - export CI_SOURCE_PATH=$(pwd)
+  - export REPOSITORY_NAME=${PWD##*/}
+  - echo "Testing branch $TRAVIS_BRANCH of $REPOSITORY_NAME from $CI_SOURCE_PATH"
 script:
   - if [ "${CHECK_PYTHON3_COMPILE}" == "true" ]; then python3 -m compileall .; exit $?; fi
-  - .ci_config/travis.sh
-#  - source ./travis.sh  # Enable this when you have a package-local script 
+  - docker run --rm -i -v $CI_SOURCE_PATH:$CI_SOURCE_PATH -e "CI_SOURCE_PATH=$CI_SOURCE_PATH" -e "HOME=$HOME" -e "ROS_DISTRO=$ROS_DISTRO" -t $DOCKER_IMAGE sh -c "cd $CI_SOURCE_PATH; ./.travis.sh"
