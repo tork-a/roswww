@@ -125,6 +125,19 @@ Chat
 
 After launching start_bridge.launch, let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
 
+Basic Authentication
+====================
+
+To enable basic authentication, start a launch file with a `basic` and `basic_yaml` arguments
+
+  $ roslaunch roswww roswww.launch basic:=true basic_yaml:=%PATH_TO_YAML_FILE%
+
+The example of `%PATH_TO_YAML_FILE%` like below, which a dictionary of %USER_NAME% and %PASSWORD.
+
+  # example passwrod file
+  user: password
+
+
 Support, communication
 ==========================
 
