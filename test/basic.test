@@ -1,0 +1,29 @@
+<launch>
+  <arg name="gui" default="false"/>
+  <arg name="test_option" default="--no-headless" if="$(arg gui)" />
+  <arg name="test_option" default="" unless="$(arg gui)" />
+  <arg name="name" default="roswww"/>
+  <arg name="port" default="8088"/> <!-- avoid to use apache default port -->
+  <arg name="webpath" default="www"/> <!-- package webroot -->
+  <arg name="cached" default="true"/>
+  <arg name="basic" default="true"/>
+  <arg name="basic_yaml" default="$(find roswww)/test/keys.yaml"/>
+
+  <include file="$(find roswww)/launch/roswww.launch">
+    <arg name="name" value="$(arg name)"/>
+    <arg name="port" value="$(arg port)"/>
+    <arg name="webpath" value="$(arg webpath)"/>
+    <arg name="cached" value="$(arg cached)"/>
+    <arg name="basic" default="$(arg basic)"/>
+    <arg name="basic_yaml" default="$(arg basic_yaml)"/>
+  </include>
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+    <arg name="port" value="9092" />
+  </include>
+
+  <param name='url_roswww_testserver' value='http://user:password@localhost:$(arg port)' />
+
+  <test type="test_basic.py" pkg="roswww" test-name="test_basic"
+        time-limit="100" args="$(arg test_option)" />
+
+</launch>

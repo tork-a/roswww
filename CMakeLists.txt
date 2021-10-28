@@ -14,7 +14,7 @@ install(DIRECTORY launch test www
 
 )
 catkin_install_python(
-  PROGRAMS test/test_roswww.py test/test_single.py
+  PROGRAMS test/test_roswww.py test/test_single.py test/test_basic.py
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/test)
 
 if (CATKIN_ENABLE_TESTING)
