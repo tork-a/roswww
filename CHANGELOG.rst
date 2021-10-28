@@ -2,8 +2,8 @@
 Changelog for package roswww
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.13 (2021-10-28)
+-------------------
 * add basic authentication (`#57 <https://github.com/tork-a/roswww/issues/57>`_
 
  - original PR `#51 <https://github.com/tork-a/roswww/issues/51>`_

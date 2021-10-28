@@ -1,6 +1,6 @@
 <package format="3">
   <name>roswww</name>
-  <version>0.1.12</version>
+  <version>0.1.13</version>
   <description>Feathery lightweight web server for ROS, that is based on <a href = "http://www.tornadoweb.org/en/stable">Tornado</a> web server module.</description>
 
   <maintainer email="iisaito@kinugarage.com">Isaac I.Y. Saito</maintainer>
