@@ -125,6 +125,11 @@ Chat
 
 After launching start_bridge.launch, let's open http://localhost:%PORT_OF_YOURCHOICE%/roswww/chat.html with a browser in two windows. Once you send a message from one of the windows, the message will be shown in both windows.
 
+Gamepad(Joy)
+--------------
+
+After launching start_bridge.launch and connect a gamapad to the PC/tablet on which you open a browser, let's open http://%HOSTNAME%:%PORT_OF_YOURCHOICE%/roswww/browser_joy.html?wsaddress=%HOSTNAME%&wsport=%WEBSOCKET_PORT% with a browser. '/joy' topic will be published when you push buttons on the gamepad.
+
 Basic Authentication
 ====================
 

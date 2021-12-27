@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+<script>
+  // parse parameters
+  const params = new URLSearchParams(window.location.search);
+  var nodebug = params.get('nodebug');
+  var wsport = params.get('wsport');
+  var wsaddress = params.get('wsaddress');
+  var debug = true;
+  if (nodebug) {
+    console.log('run without debug print');
+    debug = false
+  }
+  if ( !(wsport) ) {
+    wsport = '9090'
+  }
+  if ( !(wsaddress) ) {
+    wsaddress = 'localhost'
+  }
+  var initial_text = 'browser_joy.html start with wsport=' + wsport + ', wsaddress=' + wsaddress
+  console.log(initial_text);
+  // Print debug data
+  document.write('<html><body><div id="joy_data">' + initial_text + '<br>Press any Button</div></body></html>');
+
+function print_joy(id, button, axes) {
+  var print_text = [];
+  print_text += "Joy ID: " + id + "<br>";
+  print_text += "button: ["
+  for(var i = 0 ; i < button.length; i++) {
+     print_text += " " + button[i]
+  }
+  print_text += "]<br>"
+  print_text += "_axes_: ["
+  for(var i = 0 ; i < axes.length; i++) {
+     print_text += " " + axes[i].toFixed(2)
+  }
+  print_text += "]<br>"
+  document.getElementById("joy_data").innerHTML = print_text;
+}
+
+  //
+  // read JoyPad and publish /joy
+  //
+  var rAF = window.requestAnimationFrame;
+
+  // Connecting to ROS
+  // -----------------
+  var ros = new ROSLIB.Ros();
+
+  // Create a connection to the rosbridge WebSocket server.
+  ros.connect('ws://' + wsaddress + ':' + wsport);
+
+  // Create a Topic object
+  var joy_talker = new ROSLIB.Topic({
+    ros : ros,
+    name : '/joy',
+    messageType : 'sensor_msgs/Joy'
+  });
+
+  var update_count = 0;
+  var prev_stamp = 0;
+function update_pads() {
+    var pads = navigator.getGamepads ? navigator.getGamepads() :
+        (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
+    // use first gamepad...
+    pads = pads[0];
+    var btn  = [];
+    var axes = [];
+    var update_flag = false;
+    if (pads) {
+        var stamp = pads.timestamp;
+        if (stamp > prev_stamp) {
+            update_flag = true;
+            for (var i = 0; i < pads.buttons.length; i++) {
+                var val = pads.buttons[i];
+                var pressed = val == 1.0;
+                if (typeof (val) == "object") {
+                    pressed = val.pressed;
+                    val = val.value;
+                }
+                btn[i] = val;
+            }
+            axes = pads.axes;
+        }
+        prev_stamp = stamp;
+    }
+    if (update_flag) {
+        var msg = new ROSLIB.Message({
+            // header: { stamp: { seq: , nsec: }  },
+            axes: axes,
+            buttons: btn
+        });
+        joy_talker.publish(msg);
+        console.log("pad:[" + update_count + "] " + prev_stamp);
+        if (debug) print_joy(pads.id, btn, axes);
+    }
+    update_count += 1;
+    rAF(update_pads);
+}
+  rAF(update_pads);
+
+</script>
+
