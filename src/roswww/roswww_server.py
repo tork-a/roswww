@@ -39,6 +39,7 @@ import logging
 import base64
 import functools
 import socket
+import sys
 import tornado.ioloop  # rosbridge installs tornado
 import tornado.web
 import yaml
@@ -64,7 +65,10 @@ def basic_auth(auth):
             if not auth_header.startswith('Basic '):
                 return _request_auth(handler)
 
-            auth_decoded = base64.decodestring(auth_header.split(' ', 1)[1])
+            if sys.version_info.major >= 3:
+                auth_decoded = base64.decodestring(auth_header.split(' ', 1)[1].encode('ascii')).decode('utf-8')
+            else:
+                auth_decoded = base64.decodestring(auth_header.split(' ', 1)[1])
             username, password = auth_decoded.split(':', 1)
 
             if auth(username, password):
